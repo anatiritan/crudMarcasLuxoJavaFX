@@ -10,103 +10,119 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="419.0" prefWidth="600.0" style="-fx-background-color: ffffff; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="419.0" prefWidth="600.0" style="-fx-background-color: ffffff; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
     <children>
-        <Button layoutX="26.0" layoutY="213.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="84.0" style="-fx-background-color: 8E244D; -fx-background-radius: 15;" text="Salvar">
-         <font>
-            <Font name="Bodoni 72 Oldstyle Bold" size="15.0" />
-         </font></Button>
-      <Button layoutX="25.0" layoutY="264.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="84.0" style="-fx-background-color: 8E244D; -fx-background-radius: 15;" text="Atualizar">
-         <font>
-            <Font name="Bodoni 72 Bold" size="15.0" />
-         </font></Button>
-      <Button layoutX="25.0" layoutY="367.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="84.0" style="-fx-background-color: 8E244D; -fx-background-radius: 15;" text="Limpar">
-         <font>
-            <Font name="Bodoni 72 Bold" size="15.0" />
-         </font></Button>
-      <Button layoutX="26.0" layoutY="317.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: 8E244D; -fx-background-radius: 15;" text="Deletar">
-         <font>
-            <Font name="Bodoni 72 Oldstyle Bold" size="15.0" />
-         </font></Button>
-      <TableView layoutX="119.0" layoutY="207.0" prefHeight="200.0" prefWidth="456.0" style="-fx-background-color: 4A1020;">
-        <columns>
-          <TableColumn prefWidth="45.916847229003906" style="-fx-background-color: FCE4EC;" text="ID" />
-          <TableColumn prefWidth="77.94584655761719" style="-fx-background-color: FCE4EC;" text="Nome" />
-            <TableColumn prefWidth="75.44581604003906" style="-fx-background-color: FCE4EC;" text="Estilista" />
-            <TableColumn prefWidth="85.5616455078125" style="-fx-background-color: FCE4EC;" text="País Origem" />
-            <TableColumn prefWidth="91.5579833984375" style="-fx-background-color: FCE4EC;" text="Ano Fundação" />
-            <TableColumn prefWidth="76.44210815429688" style="-fx-background-color: FCE4EC;" text="Tipo" />
-        </columns>
-      </TableView>
-      <Label layoutX="42.0" layoutY="68.0" prefHeight="24.0" prefWidth="61.0" text="Nome:">
-         <font>
-            <Font size="19.0" />
-         </font></Label>
-      <Label layoutX="345.0" layoutY="115.0" text="Tipo:">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
-      <Label layoutX="345.0" layoutY="157.0" text="Ano Fundação:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="42.0" layoutY="111.0" text="Estilista:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="43.0" layoutY="154.0" text="País Origem:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="98.0" layoutY="18.0" text="Cadastro  De  Marcas  De  Luxo">
-         <font>
-            <Font name="Bodoni 72 Bold" size="34.0" />
-         </font>
-      </Label>
-      <Label layoutX="348.0" layoutY="67.0" text="ID:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <TextField layoutX="125.0" layoutY="68.0" prefHeight="29.0" prefWidth="161.0" style="-fx-background-color: FCE4EC; -fx-background-radius: 10;">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="483.0" layoutY="156.0" prefHeight="26.0" prefWidth="64.0" style="-fx-background-color: FCE4EC; -fx-background-radius: 10;">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="401.0" layoutY="115.0" prefHeight="26.0" prefWidth="149.0" style="-fx-background-color: FCE4EC; -fx-background-radius: 10;">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="399.0" layoutY="68.0" prefHeight="26.0" prefWidth="152.0" style="-fx-background-color: FCE4EC; -fx-background-radius: 10;">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="127.0" layoutY="111.0" prefHeight="26.0" prefWidth="157.0" style="-fx-background-color: FCE4EC; -fx-background-radius: 10;">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="155.0" layoutY="153.0" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: FCE4EC; -fx-background-radius: 10;">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-      <ImageView fitHeight="64.0" fitWidth="84.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="49.0" fitWidth="61.0" layoutX="37.0" layoutY="15.0">
-         <image>
-            <Image url="@../../../../../../Desktop/Captura%20de%20Tela%202026-06-09%20às%2009.24.06.png" />
-         </image>
-      </ImageView>
+        <Button fx:id="btnSalvar" layoutX="26.0" layoutY="213.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="36.0" prefWidth="84.0" style="-fx-background-color: #8E244D; -fx-background-radius: 15;" text="Salvar">
+            <font>
+                <Font name="Bodoni 72 Oldstyle Bold" size="15.0" />
+            </font>
+        </Button>
+        <Button fx:id="btnEditar" layoutX="25.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnEditarAction" prefHeight="36.0" prefWidth="84.0" style="-fx-background-color: #8E244D; -fx-background-radius: 15;" text="Atualizar">
+            <font>
+                <Font name="Bodoni 72 Bold" size="15.0" />
+            </font>
+        </Button>
+        <Button fx:id="btnDeletar" layoutX="26.0" layoutY="317.0" mnemonicParsing="false" onAction="#btnDeletarAction" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #8E244D; -fx-background-radius: 15;" text="Deletar">
+            <font>
+                <Font name="Bodoni 72 Bold" size="15.0" />
+            </font>
+        </Button>
+        <Button fx:id="btnLimpar" layoutX="25.0" layoutY="367.0" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="35.0" prefWidth="84.0" style="-fx-background-color: #8E244D; -fx-background-radius: 15;" text="Limpar">
+            <font>
+                <Font name="Bodoni 72 Oldstyle Bold" size="15.0" />
+            </font>
+        </Button>
+        <TableView fx:id="tblMarcasLuxo" layoutX="119.0" layoutY="207.0" onMouseClicked="#carregarCampos" prefHeight="200.0" prefWidth="456.0" style="-fx-background-color: #4A1020;">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="45.916847229003906" style="-fx-background-color: FCE4EC;" text="ID" />
+
+                <TableColumn fx:id="colNomeMarca" prefWidth="77.94584655761719" style="-fx-background-color: FCE4EC;" text="Nome" />
+
+                <TableColumn fx:id="colEstilista" prefWidth="75.44581604003906" style="-fx-background-color: FCE4EC;" text="Estilista" />
+
+                <TableColumn fx:id="colPaisOrigem" prefWidth="85.5616455078125" style="-fx-background-color: FCE4EC;" text="País Origem" />
+
+                <TableColumn fx:id="colAnoFundacao" prefWidth="91.5579833984375" style="-fx-background-color: FCE4EC;" text="Ano Fundação" />
+
+                <TableColumn fx:id="colTipo" prefWidth="76.44210815429688" style="-fx-background-color: FCE4EC;" text="Tipo" />
+            </columns>
+        </TableView>
+        <Label layoutX="42.0" layoutY="68.0" prefHeight="24.0" prefWidth="61.0" text="Nome:">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </Label>
+        <Label layoutX="345.0" layoutY="115.0" text="Tipo:">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="345.0" layoutY="157.0" text="Ano Fundação:">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="42.0" layoutY="111.0" text="Estilista:">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="43.0" layoutY="154.0" text="País Origem:">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="98.0" layoutY="18.0" text="Cadastro  De  Marcas  De  Luxo">
+            <font>
+                <Font name="Bodoni 72 Bold" size="34.0" />
+            </font>
+        </Label>
+        <Label layoutX="348.0" layoutY="67.0" text="ID:">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <TextField fx:id="txtNome" layoutX="125.0" layoutY="68.0" prefHeight="29.0" prefWidth="161.0" promptText="Digite o nome da marca" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+
+        <TextField fx:id="txtId" layoutX="387.0" layoutY="66.0" prefHeight="26.0" prefWidth="64.0" promptText="ID" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+
+        <TextField fx:id="txtTipo" layoutX="401.0" layoutY="115.0" prefHeight="26.0" prefWidth="149.0" promptText="Ex: Alta Costura" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+
+        <TextField fx:id="txtEstilista" layoutX="142.0" layoutY="114.0" prefHeight="26.0" prefWidth="152.0" promptText="Nome do estilista" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+
+        <TextField fx:id="txtPaisOrigem" layoutX="164.0" layoutY="156.0" prefHeight="26.0" prefWidth="157.0" promptText="País de origem" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+
+        <TextField fx:id="txtAnoFundacao" layoutX="471.0" layoutY="156.0" prefHeight="26.0" prefWidth="126.0" promptText="Pesquisar marca" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+        <ImageView fitHeight="64.0" fitWidth="84.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fitHeight="49.0" fitWidth="61.0" layoutX="37.0" layoutY="15.0">
+            <image>
+                <Image url="@../../../../../../Desktop/Captura%20de%20Tela%202026-06-09%20às%2009.24.06.png" />
+            </image>
+        </ImageView>
     </children>
 
 </AnchorPane>

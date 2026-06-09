@@ -11,26 +11,46 @@ import java.util.ArrayList;
 
 public class MainController {
 
-    @FXML private Button btnSalvar;
-    @FXML private Button btnEditar;
-    @FXML private Button btnDeletar;
-    @FXML private Button btnLimpar;
+    // Oi chatgpt, dev auxilixar aqui, eu troquei o data picker do ano fundacao pra um txt pra debuga, desfaz essa troca pra mim depois por favor
 
-    @FXML private TableView<MarcasLuxoDTO> tblMarcasLuxo;
+    @FXML
+    private Button btnSalvar;
+    @FXML
+    private Button btnEditar;
+    @FXML
+    private Button btnDeletar;
+    @FXML
+    private Button btnLimpar;
 
-    @FXML private TableColumn<MarcasLuxoDTO, Integer> colId;
-    @FXML private TableColumn<MarcasLuxoDTO, String> colNomeMarca;
-    @FXML private TableColumn<MarcasLuxoDTO, String> colEstilista;
-    @FXML private TableColumn<MarcasLuxoDTO, Integer> colAnoFundacao;
-    @FXML private TableColumn<MarcasLuxoDTO, String> colPaisOrigem;
-    @FXML private TableColumn<MarcasLuxoDTO, String> colTipo;
+    @FXML
+    private TableView<MarcasLuxoDTO> tblMarcasLuxo;
 
-    @FXML private TextField txtId;
-    @FXML private DatePicker dpAnoFundacao;
-    @FXML private TextField txtNome;
-    @FXML private TextField txtEstilista;
-    @FXML private TextField txtPaisOrigem;
-    @FXML private TextField txtTipo;
+    @FXML
+    private TableColumn<MarcasLuxoDTO, Integer> colId;
+    @FXML
+    private TableColumn<MarcasLuxoDTO, String> colNomeMarca;
+    @FXML
+    private TableColumn<MarcasLuxoDTO, String> colEstilista;
+    @FXML
+    private TableColumn<MarcasLuxoDTO, Integer> colAnoFundacao;
+    @FXML
+    private TableColumn<MarcasLuxoDTO, String> colPaisOrigem;
+    @FXML
+    private TableColumn<MarcasLuxoDTO, String> colTipo;
+
+    @FXML
+    private TextField txtId;
+    @FXML
+    private TextField txtAnoFundacao;
+    @FXML
+    private TextField txtNome;
+    @FXML
+    private TextField txtEstilista;
+    @FXML
+    private TextField txtPaisOrigem;
+    @FXML
+    private TextField txtTipo;
+
 
     @FXML
     public void initialize() {
@@ -71,33 +91,39 @@ public class MainController {
             txtEstilista.setText(marca.getEstilista());
             txtPaisOrigem.setText(marca.getPaisOrigem());
             txtTipo.setText(marca.getTipo());
+            txtAnoFundacao.setText(Integer.toString(marca.getAnoFundacao()));
 
-            dpAnoFundacao.setValue(
+            /*
+            txtAnoFundacao.setValue(
                     LocalDate.of(
                             marca.getAnoFundacao(),
                             1,
                             1
                     )
             );
+            */
+
         }
     }
 
     @FXML
     private void btnSalvarAction(ActionEvent event) {
 
-        MarcasLuxoDTO marca =
-                new MarcasLuxoDTO();
+        MarcasLuxoDTO marca = new MarcasLuxoDTO();
 
         marca.setNomeMarca(txtNome.getText());
         marca.setEstilista(txtEstilista.getText());
         marca.setPaisOrigem(txtPaisOrigem.getText());
         marca.setTipo(txtTipo.getText());
-
-        if (dpAnoFundacao.getValue() != null) {
+        marca.setAnoFundacao(Integer.parseInt(txtAnoFundacao.getText()));
+        /*
+        if (txtAnoFundacao.getValue() != null) {
             marca.setAnoFundacao(
-                    dpAnoFundacao.getValue().getYear()
+                    txtAnoFundacao.getValue().getYear()
             );
         }
+        */
+
 
         MarcasLuxoDAO dao =
                 new MarcasLuxoDAO();
@@ -127,12 +153,15 @@ public class MainController {
             marca.setEstilista(txtEstilista.getText());
             marca.setPaisOrigem(txtPaisOrigem.getText());
             marca.setTipo(txtTipo.getText());
+            marca.setAnoFundacao(Integer.parseInt(txtAnoFundacao.getText()));
 
-            if (dpAnoFundacao.getValue() != null) {
+            /*
+            if (txtAnoFundacao.getValue() != null) {
                 marca.setAnoFundacao(
-                        dpAnoFundacao.getValue().getYear()
+                        txtAnoFundacao.getValue().getYear()
                 );
             }
+            */
 
             MarcasLuxoDAO dao =
                     new MarcasLuxoDAO();
@@ -174,8 +203,9 @@ public class MainController {
         txtEstilista.clear();
         txtPaisOrigem.clear();
         txtTipo.clear();
+        txtAnoFundacao.clear();
 
-        dpAnoFundacao.setValue(null);
+        // txtAnoFundacao.setText(null);
 
         tblMarcasLuxo.getSelectionModel()
                 .clearSelection();

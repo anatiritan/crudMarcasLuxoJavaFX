@@ -16,7 +16,7 @@ public class MarcasLuxoDAO {
     public void cadastrarMarca(MarcasLuxoDTO marca) {
 
         String sql =
-                "INSERT INTO marcas_luxo(nome_marca, estilista, pais_origem, ano_fundacao, tipo) VALUES(?, ?, ?, ?, ?)";
+                "INSERT INTO MarcasLuxo(nomemarca, estilista, paisorigem, anofundacao, tipo) VALUES(?, ?, ?, ?, ?)";
 
         try (
                 Connection c = new Conexao().getConnection();
@@ -40,7 +40,7 @@ public class MarcasLuxoDAO {
 
     public ArrayList<MarcasLuxoDTO> visualizarMarcas() {
 
-        String sql = "SELECT * FROM marcas_luxo";
+        String sql = "SELECT * FROM MarcasLuxo";
 
         ArrayList<MarcasLuxoDTO> listaMarcas =
                 new ArrayList<>();
@@ -78,7 +78,7 @@ public class MarcasLuxoDAO {
     public void alterarMarca(MarcasLuxoDTO marca) {
 
         String sql =
-                "UPDATE marcas_luxo SET estilista=?, pais_origem=?, ano_fundacao=?, tipo=? WHERE nome_marca=?";
+                "UPDATE MarcasLuxo SET estilista=?, paisorigem=?, anofundacao=?, tipo=? WHERE nomemarca=?";
 
         try (
                 Connection c = new Conexao().getConnection();
@@ -103,7 +103,7 @@ public class MarcasLuxoDAO {
     public void excluirMarca(MarcasLuxoDTO marca) {
 
         String sql =
-                "DELETE FROM marcas_luxo WHERE nome_marca=?";
+                "DELETE FROM MarcasLuxo WHERE nomemarca=?";
 
         try (
                 Connection c = new Conexao().getConnection();
