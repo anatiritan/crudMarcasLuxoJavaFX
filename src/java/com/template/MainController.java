@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 public class MainController {
 
-    // Oi chatgpt, dev auxilixar aqui, eu troquei o data picker do ano fundacao pra um txt pra debuga, desfaz essa troca pra mim depois por favor
-
     @FXML
     private Button btnSalvar;
     @FXML
@@ -66,6 +64,25 @@ public class MainController {
     }
 
     @FXML
+    private void bloquearBtn() {
+        if (
+                txtNome.getText().isEmpty()
+                        || txtAnoFundacao.getText().isEmpty()
+                        || txtEstilista.getText().isEmpty()
+                        || txtPaisOrigem.getText().isEmpty()
+                        || txtTipo.getText().isEmpty()) {
+            btnSalvar.setDisable(true);
+            btnDeletar.setDisable(true);
+            btnEditar.setDisable(true);
+            return;
+        }
+
+        btnSalvar.setDisable(false);
+        btnEditar.setDisable(false);
+        btnDeletar.setDisable(false);
+    }
+
+    @FXML
     private void carregarMarcas() {
 
         MarcasLuxoDAO dao = new MarcasLuxoDAO();
@@ -76,13 +93,14 @@ public class MainController {
         tblMarcasLuxo.setItems(
                 FXCollections.observableArrayList(lista)
         );
+
+        bloquearBtn();
     }
 
     @FXML
     private void carregarCampos() {
 
-        MarcasLuxoDTO marca =
-                tblMarcasLuxo.getSelectionModel().getSelectedItem();
+        MarcasLuxoDTO marca = tblMarcasLuxo.getSelectionModel().getSelectedItem();
 
         if (marca != null) {
 
@@ -92,6 +110,8 @@ public class MainController {
             txtPaisOrigem.setText(marca.getPaisOrigem());
             txtTipo.setText(marca.getTipo());
             txtAnoFundacao.setText(Integer.toString(marca.getAnoFundacao()));
+
+            bloquearBtn();
 
             /*
             txtAnoFundacao.setValue(
@@ -109,13 +129,13 @@ public class MainController {
     @FXML
     private void btnSalvarAction(ActionEvent event) {
 
-        MarcasLuxoDTO marca = new MarcasLuxoDTO();
+        MarcasLuxoDTO marcaDto = new MarcasLuxoDTO();
 
-        marca.setNomeMarca(txtNome.getText());
-        marca.setEstilista(txtEstilista.getText());
-        marca.setPaisOrigem(txtPaisOrigem.getText());
-        marca.setTipo(txtTipo.getText());
-        marca.setAnoFundacao(Integer.parseInt(txtAnoFundacao.getText()));
+        marcaDto.setNomeMarca(txtNome.getText());
+        marcaDto.setEstilista(txtEstilista.getText());
+        marcaDto.setPaisOrigem(txtPaisOrigem.getText());
+        marcaDto.setTipo(txtTipo.getText());
+        marcaDto.setAnoFundacao(Integer.parseInt(txtAnoFundacao.getText()));
         /*
         if (txtAnoFundacao.getValue() != null) {
             marca.setAnoFundacao(
@@ -125,13 +145,13 @@ public class MainController {
         */
 
 
-        MarcasLuxoDAO dao =
-                new MarcasLuxoDAO();
+        MarcasLuxoDAO dao = new MarcasLuxoDAO();
 
-        dao.cadastrarMarca(marca);
+        dao.cadastrarMarca(marcaDto);
 
         carregarMarcas();
         limparCampos();
+        bloquearBtn();
     }
 
     @FXML
@@ -170,6 +190,7 @@ public class MainController {
 
             carregarMarcas();
             limparCampos();
+            bloquearBtn();
         }
     }
 
@@ -188,6 +209,7 @@ public class MainController {
 
             carregarMarcas();
             limparCampos();
+            bloquearBtn();
         }
     }
 
@@ -209,5 +231,7 @@ public class MainController {
 
         tblMarcasLuxo.getSelectionModel()
                 .clearSelection();
+
+        bloquearBtn();
     }
 }

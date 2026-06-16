@@ -53,14 +53,13 @@ public class MarcasLuxoDAO {
 
             while (resultado.next()) {
 
-                MarcasLuxoDTO marca =
-                        new MarcasLuxoDTO();
+                MarcasLuxoDTO marca = new MarcasLuxoDTO();
 
                 marca.setIdMarca(resultado.getInt("id"));
-                marca.setNomeMarca(resultado.getString("nome_marca"));
+                marca.setNomeMarca(resultado.getString("nomeMarca"));
                 marca.setEstilista(resultado.getString("estilista"));
-                marca.setPaisOrigem(resultado.getString("pais_origem"));
-                marca.setAnoFundacao(resultado.getInt("ano_fundacao"));
+                marca.setPaisOrigem(resultado.getString("paisOrigem"));
+                marca.setAnoFundacao(resultado.getInt("anoFundacao"));
                 marca.setTipo(resultado.getString("tipo"));
 
                 listaMarcas.add(marca);

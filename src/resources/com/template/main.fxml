@@ -10,29 +10,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="419.0" prefWidth="600.0" style="-fx-background-color: ffffff; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
+<AnchorPane prefHeight="419.0" prefWidth="618.0" style="-fx-background-color: ffffff; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
     <children>
-        <Button fx:id="btnSalvar" layoutX="26.0" layoutY="213.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="36.0" prefWidth="84.0" style="-fx-background-color: #8E244D; -fx-background-radius: 15;" text="Salvar">
+        <Button fx:id="btnSalvar" layoutX="26.0" layoutY="213.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="36.0" prefWidth="84.0" style="-fx-background-color: #FCE4EC; -fx-background-radius: 15;" text="Salvar">
             <font>
                 <Font name="Bodoni 72 Oldstyle Bold" size="15.0" />
             </font>
         </Button>
-        <Button fx:id="btnEditar" layoutX="25.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnEditarAction" prefHeight="36.0" prefWidth="84.0" style="-fx-background-color: #8E244D; -fx-background-radius: 15;" text="Atualizar">
+        <Button fx:id="btnEditar" layoutX="25.0" layoutY="264.0" mnemonicParsing="false" onAction="#btnEditarAction" prefHeight="36.0" prefWidth="84.0" style="-fx-background-color: #FCE4EC; -fx-background-radius: 15;" text="Atualizar">
             <font>
                 <Font name="Bodoni 72 Bold" size="15.0" />
             </font>
         </Button>
-        <Button fx:id="btnDeletar" layoutX="26.0" layoutY="317.0" mnemonicParsing="false" onAction="#btnDeletarAction" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #8E244D; -fx-background-radius: 15;" text="Deletar">
+        <Button fx:id="btnDeletar" layoutX="26.0" layoutY="317.0" mnemonicParsing="false" onAction="#btnDeletarAction" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #FCE4EC; -fx-background-radius: 15;" text="Deletar">
             <font>
                 <Font name="Bodoni 72 Bold" size="15.0" />
             </font>
         </Button>
-        <Button fx:id="btnLimpar" layoutX="25.0" layoutY="367.0" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="35.0" prefWidth="84.0" style="-fx-background-color: #8E244D; -fx-background-radius: 15;" text="Limpar">
+        <Button fx:id="btnLimpar" layoutX="25.0" layoutY="367.0" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="35.0" prefWidth="84.0" style="-fx-background-color: #FCE4EC; -fx-background-radius: 15;" text="Limpar">
             <font>
                 <Font name="Bodoni 72 Oldstyle Bold" size="15.0" />
             </font>
         </Button>
-        <TableView fx:id="tblMarcasLuxo" layoutX="119.0" layoutY="207.0" onMouseClicked="#carregarCampos" prefHeight="200.0" prefWidth="456.0" style="-fx-background-color: #4A1020;">
+        <TableView fx:id="tblMarcasLuxo" layoutX="119.0" layoutY="207.0" onMouseClicked="#carregarCampos" prefHeight="200.0" prefWidth="456.0" style="-fx-background-color: #f0f0f0;">
             <columns>
                 <TableColumn fx:id="colId" prefWidth="45.916847229003906" style="-fx-background-color: FCE4EC;" text="ID" />
 
@@ -82,47 +82,46 @@
                 <Font size="20.0" />
             </font>
         </Label>
-        <TextField fx:id="txtNome" layoutX="125.0" layoutY="68.0" prefHeight="29.0" prefWidth="161.0" promptText="Digite o nome da marca" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+        <TextField fx:id="txtNome" onKeyTyped="#bloquearBtn" layoutX="125.0" layoutY="68.0" prefHeight="29.0" prefWidth="161.0" promptText="Digite o nome da marca" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
             <font>
                 <Font size="15.0" />
             </font>
         </TextField>
 
-        <TextField fx:id="txtId" layoutX="387.0" layoutY="66.0" prefHeight="26.0" prefWidth="64.0" promptText="ID" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+        <TextField fx:id="txtId" onKeyTyped="#bloquearBtn" editable="false" layoutX="387.0" layoutY="66.0" prefHeight="26.0" prefWidth="64.0" promptText="ID" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
             <font>
                 <Font size="15.0" />
             </font>
         </TextField>
 
-        <TextField fx:id="txtTipo" layoutX="401.0" layoutY="115.0" prefHeight="26.0" prefWidth="149.0" promptText="Ex: Alta Costura" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+        <TextField fx:id="txtTipo" onKeyTyped="#bloquearBtn" layoutX="401.0" layoutY="115.0" prefHeight="26.0" prefWidth="149.0" promptText="Ex: Alta Costura" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
             <font>
                 <Font size="15.0" />
             </font>
         </TextField>
 
-        <TextField fx:id="txtEstilista" layoutX="142.0" layoutY="114.0" prefHeight="26.0" prefWidth="152.0" promptText="Nome do estilista" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+        <TextField fx:id="txtEstilista" onKeyTyped="#bloquearBtn" layoutX="130.0" layoutY="114.0" prefHeight="29.0" prefWidth="161.0" promptText="Nome do estilista" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
             <font>
                 <Font size="15.0" />
             </font>
         </TextField>
 
-        <TextField fx:id="txtPaisOrigem" layoutX="164.0" layoutY="156.0" prefHeight="26.0" prefWidth="157.0" promptText="País de origem" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+        <TextField fx:id="txtPaisOrigem" onKeyTyped="#bloquearBtn" layoutX="159.0" layoutY="153.0" prefHeight="29.0" prefWidth="134.0" promptText="País de origem" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
             <font>
                 <Font size="15.0" />
             </font>
         </TextField>
 
-        <TextField fx:id="txtAnoFundacao" layoutX="471.0" layoutY="156.0" prefHeight="26.0" prefWidth="126.0" promptText="Pesquisar marca" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
+        <TextField fx:id="txtAnoFundacao" onKeyTyped="#bloquearBtn" layoutX="476.0" layoutY="156.0" prefHeight="29.0" prefWidth="115.0" promptText="Ano Fundação" style="-fx-background-color: #FCE4EC; -fx-background-radius: 10;">
             <font>
                 <Font size="15.0" />
             </font>
         </TextField>
-        <ImageView fitHeight="64.0" fitWidth="84.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fitHeight="49.0" fitWidth="61.0" layoutX="37.0" layoutY="15.0">
-            <image>
-                <Image url="@../../../../../../Desktop/Captura%20de%20Tela%202026-06-09%20às%2009.24.06.png" />
-            </image>
-        </ImageView>
+      <ImageView fitHeight="64.0" fitWidth="69.0" layoutX="25.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagens/logo.png" />
+         </image>
+      </ImageView>
     </children>
 
 </AnchorPane>
