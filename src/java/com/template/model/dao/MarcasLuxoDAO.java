@@ -1,4 +1,7 @@
-package com.template;
+package com.template.model.dao;
+
+import com.template.model.dto.Conexao;
+import com.template.model.dto.MarcasLuxoDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,6 +38,10 @@ public class MarcasLuxoDAO {
 
             logger.log(Level.SEVERE,
                     "Erro ao cadastrar marca!", e);
+
+            throw new RuntimeException(
+                    "Erro ao cadastrar marca!", e
+            );
         }
     }
 
@@ -48,10 +55,10 @@ public class MarcasLuxoDAO {
         try (
                 Connection c = new Conexao().getConnection();
                 PreparedStatement ps = c.prepareStatement(sql);
-                ResultSet resultado = ps.executeQuery()
+                ResultSet resultado = ps.executeQuery()  //recebe os dados que vieram do banco
         ) {
 
-            while (resultado.next()) {
+            while (resultado.next()) {     //laço percorre todos os registros encontrados
 
                 MarcasLuxoDTO marca = new MarcasLuxoDTO();
 
@@ -69,6 +76,10 @@ public class MarcasLuxoDAO {
 
             logger.log(Level.SEVERE,
                     "Erro ao listar marcas!", e);
+
+            throw new RuntimeException(
+                    "Erro ao listar marcas!", e
+            );
         }
 
         return listaMarcas;
@@ -84,7 +95,7 @@ public class MarcasLuxoDAO {
                 PreparedStatement ps = c.prepareStatement(sql)
         ) {
 
-            ps.setString(1, marca.getEstilista());
+            ps.setString(1, marca.getEstilista());   //enviam os valores digitados pelo usuário para o banco
             ps.setString(2, marca.getPaisOrigem());
             ps.setInt(3, marca.getAnoFundacao());
             ps.setString(4, marca.getTipo());
@@ -96,6 +107,10 @@ public class MarcasLuxoDAO {
 
             logger.log(Level.SEVERE,
                     "Erro ao alterar marca!", e);
+
+            throw new RuntimeException(
+                    "Erro ao alterar marca!", e
+            );
         }
     }
 
@@ -109,7 +124,7 @@ public class MarcasLuxoDAO {
                 PreparedStatement ps = c.prepareStatement(sql)
         ) {
 
-            ps.setString(1, marca.getNomeMarca());
+            ps.setString(1, marca.getNomeMarca());  //enviam os valores digitados pelo usuário para o banco
 
             ps.execute();
 
@@ -117,6 +132,10 @@ public class MarcasLuxoDAO {
 
             logger.log(Level.SEVERE,
                     "Erro ao excluir marca!", e);
+
+            throw new RuntimeException(
+                    "Erro ao excluir marca!", e
+            );
         }
     }
 }

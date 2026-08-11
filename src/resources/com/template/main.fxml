@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="419.0" prefWidth="618.0" style="-fx-background-color: ffffff; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
+<AnchorPane prefHeight="419.0" prefWidth="618.0" style="-fx-background-color: ffffff; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.controller.MainController">
     <children>
         <Button fx:id="btnSalvar" layoutX="26.0" layoutY="213.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="36.0" prefWidth="84.0" style="-fx-background-color: #FCE4EC; -fx-background-radius: 15;" text="Salvar">
             <font>
