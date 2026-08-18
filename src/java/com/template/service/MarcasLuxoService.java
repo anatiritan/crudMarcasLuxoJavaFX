@@ -1,22 +1,24 @@
 package com.template.service;
 
+// Importa o DAO para acessar o banco de dados.
 import com.template.model.dao.MarcasLuxoDAO;
+
+// Importa o DTO que representa os dados da marca.
 import com.template.model.dto.MarcasLuxoDTO;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MarcasLuxoService {
 
-    private final MarcasLuxoDAO dao;
+    // O Service possui o DAO para realizar as operações no banco.
+    private final MarcasLuxoDAO marcasLuxoDAO;
 
+    // Cria o DAO que será utilizado pelo Service.
     public MarcasLuxoService() {
-        dao = new MarcasLuxoDAO();
+        this.marcasLuxoDAO = new MarcasLuxoDAO();
     }
 
-    public ArrayList<MarcasLuxoDTO> listarMarcas() {
-        return dao.visualizarMarcas();
-    }
-
+    // Responsável pela lógica de cadastro da marca.
     public void cadastrarMarca(
             String nome,
             String estilista,
@@ -24,39 +26,83 @@ public class MarcasLuxoService {
             String anoFundacao,
             String tipo) {
 
-        MarcasLuxoDTO marca = new MarcasLuxoDTO();
+        // Monta o objeto DTO com os dados recebidos.
+        MarcasLuxoDTO dto = montarDTO(
+                null,
+                nome,
+                estilista,
+                paisOrigem,
+                anoFundacao,
+                tipo
+        );
 
-        marca.setNomeMarca(nome);
-        marca.setEstilista(estilista);
-        marca.setPaisOrigem(paisOrigem);
-        marca.setTipo(tipo);
-        marca.setAnoFundacao(Integer.parseInt(anoFundacao));
-
-        dao.cadastrarMarca(marca);
+        // Envia o DTO para o DAO salvar no banco.
+        marcasLuxoDAO.cadastrarMarca(dto);
     }
 
+    // Responsável pela lógica de alteração da marca.
     public void alterarMarca(
-            int idMarca,
+            int id,
             String nome,
             String estilista,
             String paisOrigem,
             String anoFundacao,
             String tipo) {
 
-        MarcasLuxoDTO marca = new MarcasLuxoDTO();
+        // Monta o DTO com os dados atualizados.
+        MarcasLuxoDTO dto = montarDTO(
+                id,
+                nome,
+                estilista,
+                paisOrigem,
+                anoFundacao,
+                tipo
+        );
 
-        marca.setIdMarca(idMarca);
-        marca.setNomeMarca(nome);
-        marca.setEstilista(estilista);
-        marca.setPaisOrigem(paisOrigem);
-        marca.setTipo(tipo);
-        marca.setAnoFundacao(Integer.parseInt(anoFundacao));
-
-        dao.alterarMarca(marca);
+        // Envia o DTO para o DAO atualizar no banco.
+        marcasLuxoDAO.alterarMarca(dto);
     }
 
+    // Envia a marca selecionada para o DAO excluir do banco.
     public void excluirMarca(MarcasLuxoDTO marca) {
-        dao.excluirMarca(marca);
+        marcasLuxoDAO.excluirMarca(marca);
+    }
+
+    // Busca todas as marcas através do DAO.
+    public List<MarcasLuxoDTO> listarMarcas() {
+        return marcasLuxoDAO.visualizarMarcas();
+    }
+
+    // Método auxiliar responsável por montar o DTO.
+    private MarcasLuxoDTO montarDTO(
+            Integer id,
+            String nome,
+            String estilista,
+            String paisOrigem,
+            String anoFundacao,
+            String tipo) {
+
+        // Cria um novo objeto para armazenar os dados da marca.
+        MarcasLuxoDTO marcasLuxoDto = new MarcasLuxoDTO();
+
+        // Define o ID somente quando ele existe.
+        if (id != null) {
+            marcasLuxoDto.setIdMarca(id);
+        }
+
+        // Preenche o DTO com os dados recebidos.
+        marcasLuxoDto.setNomeMarca(nome);
+        marcasLuxoDto.setEstilista(estilista);
+        marcasLuxoDto.setPaisOrigem(paisOrigem);
+
+        // Converte o ano de String para inteiro.
+        marcasLuxoDto.setAnoFundacao(
+                Integer.parseInt(anoFundacao)
+        );
+
+        marcasLuxoDto.setTipo(tipo);
+
+        // Retorna o DTO pronto para ser usado pelo DAO.
+        return marcasLuxoDto;
     }
 }
-

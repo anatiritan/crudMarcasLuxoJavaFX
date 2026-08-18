@@ -13,11 +13,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MainController {
 
+    // O Service concentra as operacoes de negocio
     private final MarcasLuxoService service =
             new MarcasLuxoService();
-
-    private final MarcasLuxoValidator validator =
-            new MarcasLuxoValidator();
 
     @FXML
     private Button btnSalvar;
@@ -74,6 +72,7 @@ public class MainController {
     @FXML
     public void initialize() {
 
+        //liga a coluna ao atributo correspondente do DTO
         colId.setCellValueFactory(
                 new PropertyValueFactory<>("idMarca")
         );
@@ -98,6 +97,7 @@ public class MainController {
                 new PropertyValueFactory<>("tipo")
         );
 
+        //Carrega os dados do banco quando a tela inicia
         carregarMarcas();
     }
 
@@ -105,12 +105,11 @@ public class MainController {
     @FXML
     private void bloquearBtn() {
 
-        if (
-                txtNome.getText().isEmpty()
-                        || txtAnoFundacao.getText().isEmpty()
-                        || txtEstilista.getText().isEmpty()
-                        || txtPaisOrigem.getText().isEmpty()
-                        || txtTipo.getText().isEmpty()) {
+        if (txtNome.getText().isEmpty()
+                || txtAnoFundacao.getText().isEmpty()
+                || txtEstilista.getText().isEmpty()
+                || txtPaisOrigem.getText().isEmpty()
+                || txtTipo.getText().isEmpty()) {
 
             btnSalvar.setDisable(true);
             btnDeletar.setDisable(true);
@@ -130,16 +129,19 @@ public class MainController {
 
         try {
 
+            // O Controller pede ao Service a lista de marcas.
             tblMarcasLuxo.setItems(
                     FXCollections.observableArrayList(
                             service.listarMarcas()
                     )
             );
 
+            // Atualiza o estado dos botões.
             bloquearBtn();
 
         } catch (Exception e) {
 
+            // Exibe uma mensagem amigável ao usuário.
             DialogUtil.mostrarErro(
                     "Não foi possível carregar as marcas."
             );
@@ -177,7 +179,7 @@ public class MainController {
             );
 
             txtAnoFundacao.setText(
-                    Integer.toString(marca.getAnoFundacao())
+                    String.valueOf(marca.getAnoFundacao())
             );
 
             bloquearBtn();
@@ -188,32 +190,28 @@ public class MainController {
     @FXML
     private void btnSalvarAction(ActionEvent event) {
 
-        if (!validator.validarCampos(
+        // O Validator verifica se os campos foram preenchidos.
+        if (!MarcasLuxoValidator.validarCampos(
                 txtNome.getText(),
                 txtEstilista.getText(),
                 txtPaisOrigem.getText(),
                 txtAnoFundacao.getText(),
                 txtTipo.getText())) {
 
-            DialogUtil.mostrarAviso(
-                    "Preencha todos os campos."
-            );
-
+            // Para a operação se os dados forem inválidos.
             return;
         }
 
-        if (!validator.validarAnoFundacao(
+        // Verifica se o ano informado é realmente um número.
+        if (!MarcasLuxoValidator.validarAnoFundacao(
                 txtAnoFundacao.getText())) {
-
-            DialogUtil.mostrarErro(
-                    "O ano de fundação deve ser um número válido."
-            );
 
             return;
         }
 
         try {
 
+            // O Controller envia os dados para o Service.
             service.cadastrarMarca(
                     txtNome.getText(),
                     txtEstilista.getText(),
@@ -222,13 +220,13 @@ public class MainController {
                     txtTipo.getText()
             );
 
+            // Informa ao usuário que a operação foi concluída.
             DialogUtil.mostrarSucesso(
                     "Marca cadastrada com sucesso!"
             );
 
             carregarMarcas();
             limparCampos();
-            bloquearBtn();
 
         } catch (Exception e) {
 
@@ -246,63 +244,55 @@ public class MainController {
                 tblMarcasLuxo.getSelectionModel()
                         .getSelectedItem();
 
-        if (marcaSelecionada != null) {
+        if (marcaSelecionada == null) {
+            return;
+        }
 
-            if (!DialogUtil.confirmar(
-                    "Deseja realmente atualizar esta marca?")) {
+        if (!DialogUtil.confirmar(
+                "Deseja realmente atualizar esta marca?")) {
 
-                return;
-            }
+            return;
+        }
 
-            if (!validator.validarCampos(
+        if (!MarcasLuxoValidator.validarCampos(
+                txtNome.getText(),
+                txtEstilista.getText(),
+                txtPaisOrigem.getText(),
+                txtAnoFundacao.getText(),
+                txtTipo.getText())) {
+
+            return;
+        }
+
+        if (!MarcasLuxoValidator.validarAnoFundacao(
+                txtAnoFundacao.getText())) {
+
+            return;
+        }
+
+        try {
+
+            service.alterarMarca(
+                    marcaSelecionada.getIdMarca(),
                     txtNome.getText(),
                     txtEstilista.getText(),
                     txtPaisOrigem.getText(),
                     txtAnoFundacao.getText(),
-                    txtTipo.getText())) {
+                    txtTipo.getText()
+            );
 
-                DialogUtil.mostrarAviso(
-                        "Preencha todos os campos."
-                );
+            DialogUtil.mostrarSucesso(
+                    "Marca atualizada com sucesso!"
+            );
 
-                return;
-            }
+            carregarMarcas();
+            limparCampos();
 
-            if (!validator.validarAnoFundacao(
-                    txtAnoFundacao.getText())) {
+        } catch (Exception e) {
 
-                DialogUtil.mostrarErro(
-                        "O ano de fundação deve ser um número válido."
-                );
-
-                return;
-            }
-
-            try {
-
-                service.alterarMarca(
-                        marcaSelecionada.getIdMarca(),
-                        txtNome.getText(),
-                        txtEstilista.getText(),
-                        txtPaisOrigem.getText(),
-                        txtAnoFundacao.getText(),
-                        txtTipo.getText()
-                );
-
-                DialogUtil.mostrarSucesso(
-                        "Marca atualizada com sucesso!"
-                );
-
-                carregarMarcas();
-                limparCampos();
-                bloquearBtn();
-
-            } catch (Exception e) {
-
-                DialogUtil.mostrarErro(
-                        "Não foi possível atualizar a marca."
-                );
-            }
+            DialogUtil.mostrarErro(
+                    "Não foi possível atualizar a marca."
+            );
         }
     }
 
@@ -314,34 +304,32 @@ public class MainController {
                 tblMarcasLuxo.getSelectionModel()
                         .getSelectedItem();
 
-        if (marcaSelecionada != null) {
+        if (marcaSelecionada == null) {
+            return;
+        }
 
-            if (!DialogUtil.confirmar(
-                    "Deseja realmente excluir esta marca?")) {
+        if (!DialogUtil.confirmar(
+                "Deseja realmente excluir esta marca?")) {
 
-                return;
-            }
+            return;
+        }
 
-            try {
+        try {
 
-                service.excluirMarca(
-                        marcaSelecionada
-                );
+            service.excluirMarca(marcaSelecionada);
 
-                DialogUtil.mostrarSucesso(
-                        "Marca excluída com sucesso!"
-                );
+            DialogUtil.mostrarSucesso(
+                    "Marca excluída com sucesso!"
+            );
 
-                carregarMarcas();
-                limparCampos();
-                bloquearBtn();
+            carregarMarcas();
+            limparCampos();
 
-            } catch (Exception e) {
+        } catch (Exception e) {
 
-                DialogUtil.mostrarErro(
-                        "Não foi possível excluir a marca."
-                );
-            }
+            DialogUtil.mostrarErro(
+                    "Não foi possível excluir a marca."
+            );
         }
     }
 
