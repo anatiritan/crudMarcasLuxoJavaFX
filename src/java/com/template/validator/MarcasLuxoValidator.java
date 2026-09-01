@@ -5,9 +5,10 @@ import java.util.List;
 
 import static com.template.util.DialogUtil.mostrarAviso;
 
-public class MarcasLuxoValidator {
+public class MarcasLuxoValidator implements IMarcasLuxoValidator {
 
-    public static boolean validarCampos(
+    @Override
+    public boolean validarCampos(
             String nome,
             String estilista,
             String paisOrigem,
@@ -17,7 +18,7 @@ public class MarcasLuxoValidator {
         // Cria uma lista de validadores
         List<Validator<String>> validadores = new ArrayList<>();
 
-        // Adiciona a validação de campo obrigatório
+        // Valida os campos obrigatórios
         validadores.add(new CampoObrigatorioValidator("Nome", nome));
         validadores.add(new CampoObrigatorioValidator("Estilista", estilista));
         validadores.add(new CampoObrigatorioValidator("País de origem", paisOrigem));
@@ -41,9 +42,10 @@ public class MarcasLuxoValidator {
         return true;
     }
 
-    public static boolean validarAnoFundacao(String anoFundacao) {
+    @Override
+    public boolean validarAnoFundacao(String anoFundacao) {
 
-        if (anoFundacao == null || anoFundacao.isEmpty()) {
+        if (anoFundacao == null || anoFundacao.trim().isEmpty()) {
 
             mostrarAviso("Digite o ano de fundação");
 
@@ -58,9 +60,7 @@ public class MarcasLuxoValidator {
 
         } catch (NumberFormatException e) {
 
-            mostrarAviso(
-                    "O ano de fundação deve ser um número válido"
-            );
+            mostrarAviso("O ano de fundação deve ser um número válido");
 
             return false;
         }

@@ -1,9 +1,9 @@
 package com.template.controller;
 
 import com.template.model.dto.MarcasLuxoDTO;
-import com.template.service.MarcasLuxoService;
+import com.template.service.IMarcasLuxoService;
 import com.template.util.DialogUtil;
-import com.template.validator.MarcasLuxoValidator;
+import com.template.validator.IMarcasLuxoValidator;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -13,9 +13,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MainController {
 
-    // O Service concentra as operacoes de negocio
-    private final MarcasLuxoService service =
-            new MarcasLuxoService();
+    // O Controller depende das interfaces, e não das implementações.
+    private final IMarcasLuxoService service;
+    private final IMarcasLuxoValidator validator;
+
+    // Construtor recebe as dependências.
+    public MainController(
+            IMarcasLuxoService service,
+            IMarcasLuxoValidator validator) {
+
+        this.service = service;
+        this.validator = validator;
+    }
 
     @FXML
     private Button btnSalvar;
@@ -72,7 +81,7 @@ public class MainController {
     @FXML
     public void initialize() {
 
-        //liga a coluna ao atributo correspondente do DTO
+        // Liga cada coluna ao atributo correspondente do DTO.
         colId.setCellValueFactory(
                 new PropertyValueFactory<>("idMarca")
         );
@@ -97,7 +106,7 @@ public class MainController {
                 new PropertyValueFactory<>("tipo")
         );
 
-        //Carrega os dados do banco quando a tela inicia
+        // Carrega os dados do banco quando a tela inicia.
         carregarMarcas();
     }
 
@@ -129,19 +138,17 @@ public class MainController {
 
         try {
 
-            // O Controller pede ao Service a lista de marcas.
+            // O Controller utiliza a interface do Service.
             tblMarcasLuxo.setItems(
                     FXCollections.observableArrayList(
                             service.listarMarcas()
                     )
             );
 
-            // Atualiza o estado dos botões.
             bloquearBtn();
 
         } catch (Exception e) {
 
-            // Exibe uma mensagem amigável ao usuário.
             DialogUtil.mostrarErro(
                     "Não foi possível carregar as marcas."
             );
@@ -190,20 +197,19 @@ public class MainController {
     @FXML
     private void btnSalvarAction(ActionEvent event) {
 
-        // O Validator verifica se os campos foram preenchidos.
-        if (!MarcasLuxoValidator.validarCampos(
+        // Utiliza o Validator através da interface.
+        if (!validator.validarCampos(
                 txtNome.getText(),
                 txtEstilista.getText(),
                 txtPaisOrigem.getText(),
                 txtAnoFundacao.getText(),
                 txtTipo.getText())) {
 
-            // Para a operação se os dados forem inválidos.
             return;
         }
 
-        // Verifica se o ano informado é realmente um número.
-        if (!MarcasLuxoValidator.validarAnoFundacao(
+        // Valida especificamente o ano de fundação.
+        if (!validator.validarAnoFundacao(
                 txtAnoFundacao.getText())) {
 
             return;
@@ -211,7 +217,7 @@ public class MainController {
 
         try {
 
-            // O Controller envia os dados para o Service.
+            // Utiliza o Service através da interface.
             service.cadastrarMarca(
                     txtNome.getText(),
                     txtEstilista.getText(),
@@ -220,7 +226,6 @@ public class MainController {
                     txtTipo.getText()
             );
 
-            // Informa ao usuário que a operação foi concluída.
             DialogUtil.mostrarSucesso(
                     "Marca cadastrada com sucesso!"
             );
@@ -254,7 +259,7 @@ public class MainController {
             return;
         }
 
-        if (!MarcasLuxoValidator.validarCampos(
+        if (!validator.validarCampos(
                 txtNome.getText(),
                 txtEstilista.getText(),
                 txtPaisOrigem.getText(),
@@ -264,7 +269,7 @@ public class MainController {
             return;
         }
 
-        if (!MarcasLuxoValidator.validarAnoFundacao(
+        if (!validator.validarAnoFundacao(
                 txtAnoFundacao.getText())) {
 
             return;

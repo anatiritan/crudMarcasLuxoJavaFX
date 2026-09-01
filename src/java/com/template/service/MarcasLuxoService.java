@@ -8,17 +8,23 @@ import com.template.model.dto.MarcasLuxoDTO;
 
 import java.util.List;
 
-public class MarcasLuxoService {
+public class MarcasLuxoService implements IMarcasLuxoService {
 
     // O Service possui o DAO para realizar as operações no banco.
     private final MarcasLuxoDAO marcasLuxoDAO;
 
-    // Cria o DAO que será utilizado pelo Service.
+    // Construtor que cria o DAO automaticamente.
     public MarcasLuxoService() {
         this.marcasLuxoDAO = new MarcasLuxoDAO();
     }
 
+    // Construtor usado para injeção de dependência.
+    public MarcasLuxoService(MarcasLuxoDAO marcasLuxoDAO) {
+        this.marcasLuxoDAO = marcasLuxoDAO;
+    }
+
     // Responsável pela lógica de cadastro da marca.
+    @Override
     public void cadastrarMarca(
             String nome,
             String estilista,
@@ -41,6 +47,7 @@ public class MarcasLuxoService {
     }
 
     // Responsável pela lógica de alteração da marca.
+    @Override
     public void alterarMarca(
             int id,
             String nome,
@@ -64,11 +71,13 @@ public class MarcasLuxoService {
     }
 
     // Envia a marca selecionada para o DAO excluir do banco.
+    @Override
     public void excluirMarca(MarcasLuxoDTO marca) {
         marcasLuxoDAO.excluirMarca(marca);
     }
 
     // Busca todas as marcas através do DAO.
+    @Override
     public List<MarcasLuxoDTO> listarMarcas() {
         return marcasLuxoDAO.visualizarMarcas();
     }
